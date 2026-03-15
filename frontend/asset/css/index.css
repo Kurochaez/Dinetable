@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Kanit';
+    src: url('../font/Kanit-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root{
+    --black : #000;
+    --white : #fff;
+    --snow : snow;
+    --nav-bg : #222831;
+    --nav-bg-hover : rgb(255, 255, 255, 0.2);
+    --nav-color-hover : #E67E22;
+    --content-bg : #fafafa;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit';
+}
+
+a{
+    text-decoration: none;
+    color: var(--back);
+}
+
+/* navbar */
+.navbar{
+    background: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 10%;
+    color: var(--snow);
+    box-sizing: border-box;
+}
+
+.logo{
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+
+.main-menu a{
+    color: var(--nav-color-hover);
+}
+
+.main-menu a:hover{
+    background: var(--nav-bg);
+    padding: 10px;
+    border-radius: 25px;
+}
+/*  end navbar */
+
+.container-form{
+    display: flex;
+    justify-content: center;
+}
+
+.area-form{
+    box-sizing: border-box;
+    width: 80%;
+    background: red;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container{
+    display:flex;
+    width:350px;
+}
+
+.search-container input{
+    flex:1;
+    padding:10px 15px;
+    border:1px solid #ccc;
+    border-right:none;
+    border-radius:25px 0 0 25px;
+    outline:none;
+}
+
+.search-btn{
+    background: var(--nav-color-hover);
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:0 25px 25px 0;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.search-btn:hover{
+    background:#8b3a44;
+}
