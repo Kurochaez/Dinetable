@@ -5,14 +5,23 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Kanit-thin';
+    src: url('../font/Kanit-Thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root{
     --black : #000;
     --white : #fff;
     --snow : snow;
+    --light-gray: #ccc;
     --nav-bg : #222831;
     --nav-bg-hover : rgb(255, 255, 255, 0.2);
     --nav-color-hover : #E67E22;
     --content-bg : #fafafa;
+    --container : 80%;
 }
 
 body{
@@ -27,15 +36,26 @@ a{
     color: var(--back);
 }
 
+img{
+    object-fit: cover;
+    object-position: center;
+}
+
+#navbar{
+    background: var(--nav-bg);
+    display: flex;
+    justify-content: center;
+}
+
 /* navbar */
 .navbar{
-    background: var(--nav-bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1% 10%;
+    height: 8vh;
     color: var(--snow);
     box-sizing: border-box;
+    width: var(--container);
 }
 
 .logo{
@@ -45,41 +65,90 @@ a{
 
 
 .main-menu a{
-    color: var(--nav-color-hover);
-}
-
-.main-menu a:hover{
-    background: var(--nav-bg);
     padding: 10px;
     border-radius: 25px;
+    margin: 0 5px;
 }
+
+.menu-active{
+    background: var(--nav-color-hover);
+}
+
 /*  end navbar */
 
 .container-form{
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
+}
+
+.hero-image{
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-image img{
+    height: 100%;
+    width: 100%;
+    filter: blur(1px);
 }
 
 .area-form{
     box-sizing: border-box;
     width: 80%;
-    background: red;
+    /* background: red; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+
+}
+
+.topic{
+    color: var(--white);
+    margin: 5% 0;
+}
+
+.topic h1 , p{
+    margin: 0;
+    padding: 0;
+}
+
+.topic h1{
+    font-size: 50px;
+}
+
+.topic p{
+    font-size: 25px;
+    font-family: 'Kanit-thin';
+}
+
+.form-search{
     display: flex;
     justify-content: center;
 }
 
 .search-container{
-    display:flex;
-    width:350px;
+    display: flex;
+    width: 50%;
+    height: 50px;
+    font-family: 'Kanit';
 }
 
 .search-container input{
     flex:1;
     padding:10px 15px;
-    border:1px solid #ccc;
+    border:1px solid var(--light-gray);
     border-right:none;
     border-radius:25px 0 0 25px;
     outline:none;
+    font-family: inherit;
+}
+
+.search-container input:focus{
+    border:3px solid var(--nav-color-hover);
 }
 
 .search-btn{
@@ -92,8 +161,125 @@ a{
     display:flex;
     align-items:center;
     gap:5px;
+    font-family: inherit;
+    font-size: medium;
 }
 
 .search-btn:hover{
     background:#8b3a44;
 }
+
+
+
+/* zone dashboard table */
+/*---------------- zone dashboard table -----------------*/
+/* =========================
+   RESERVATION BOARD
+========================= */
+
+.reservation-board{
+    width:90%;
+    margin:40px auto;
+    background:#f8f8f8;
+    border-radius:8px;
+    padding:20px;
+}
+
+.board-header{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+/* =========================
+   TIMELINE TABLE
+========================= */
+
+.timeline-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1200px;
+}
+
+.timeline-table th,
+.timeline-table td{
+    border:1px solid #d9d9d9;
+    text-align:center;
+    padding:10px;
+}
+
+.timeline-table thead{
+    background:#e9ecef;
+}
+
+.timeline-table th{
+    font-size:14px;
+    font-weight:600;
+}
+
+.table-name{
+    font-weight:bold;
+    background:#f1f1f1;
+}
+
+/* ช่องเวลา */
+
+.slot{
+    width:90px;
+    height:45px;
+    position:relative;
+}
+
+/* hover */
+
+.slot:hover{
+    background:#f4f4f4;
+}
+
+/* =========================
+   BOOKING
+========================= */
+
+.booking{
+    position:absolute;
+    top:4px;
+    left:4px;
+    right:4px;
+    bottom:4px;
+
+    background:#ff7a18;
+    color:white;
+
+    border-radius:6px;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:500;
+}
+
+.booking{
+width:100%;
+height:100%;
+
+background:#ff7a18;
+color:white;
+
+border-radius:6px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+font-size:12px;
+font-weight:500;
+}
+/*---------------- end zone dashboard table -----------------*/
