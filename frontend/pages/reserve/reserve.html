@@ -23,38 +23,38 @@
                 <div class="area-input">
                     <div class="area-input-container">
                         <div class="form-group">
-                            <label for="">First Name</label>
-                            <input type="text" name="firstname">
+                            <label for="firstname">First Name</label>
+                            <input type="text" id = "firstname" name="firstname">
                         </div>
                         <div class="form-group">
-                            <label for="">Last Name</label>
-                            <input type="text" name="lastname">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" id ="lastname" name="lastname">
                         </div>
                         <div class="form-group">
-                            <label for="">Phone Number</label>
-                            <input type="text" name="phone">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id = "phone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label for="">Date</label>
-                            <input type="date" name="date">
+                            <label for="date">Date</label>
+                            <input type="date" id = "date" name="date">
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="">Start Time</label>
-                                <input type="time" name="starttime">
+                                <label for="starttime">Start Time</label>
+                                <input type="time" id = "starttime" name="starttime">
                             </div>
                             <div class="form-group">
-                                <label for="">End Time</label>
-                                <input type="time" name="endtime">
+                                <label for="endtime">End Time</label>
+                                <input type="time" id = "endtime" name="endtime">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">Number of Guests</label>
-                            <input type="number" name="nog">
+                            <label for="nog">Number of Guests</label>
+                            <input type="number" id = "nog" name="nog">
                         </div>
 
                         <div class="form-group">
-                            <button type="submit">Reserve Table</button>
+                            <button type="button"  onclick="SubmitData()">Reserve Table</button>
                         </div>
                     </div>
 
@@ -71,8 +71,9 @@
             initNavbar();
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/frontend/components/navbar/navbar.js"></script>
+    <script src="/frontend/pages/reserve/reserve.js"></script>
  
 </body>
 </html>

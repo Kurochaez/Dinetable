@@ -20,10 +20,30 @@ const initDBConnection = async ()=>{
     })
 }
 
+const validationData = (userData) =>{
+    let error = [];
+    if(!userData.firstname){error.push('กรุณากรอกชื่อ')}
+    if(!userData.lastname){error.push('กรุณากรอกน้ำสกุล')}
+    if(!userData.phone){error.push('กรุณากรอกเบอร์โทร')}
+    if(!userData.date){error.push('กรุณากรอกวันที่')}
+    if(!userData.starttime){error.push('กรุณากรอกช่วงเวลา')}
+    if(!userData.endtime){error.push('กรุณากรอกช่วงเวลา')}
+    if(!userData.nog){error.push('กรุธากรอจำนวนคนที่มา')}
+    return error;
+}
+
+
+
 // Get User data
 app.get('/users',async (req,res)=>{
-    const results = await conn.query('SELECT * FROM User');
-    res.json(results[0]);
+    try {
+        const [rows] = await conn.query('SELECT * FROM User')
+        res.status(200).json({
+            data: rows
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
 })
 
 //Get User data by Id user
@@ -38,7 +58,8 @@ app.get('/users/:id',async (req,res)=>{
                 u.Phone_number,
                 r.Reservation_id,
                 DATE_FORMAT(r.Reserve_date, '%Y-%m-%d') AS Reserve_date,
-                r.Reserve_time,
+                r.Start_time,
+                r.End_time,
                 r.Status
             From User u
             LEFT JOIN Reservations r ON u.User_id = r.User_id
@@ -53,6 +74,34 @@ app.get('/users/:id',async (req,res)=>{
         res.status(500).json({message:error.message || 'Internal Server error'});
     }
 });
+
+app.post('/reservation',async (req,res)=>{
+    let userData = req.body;
+    try{
+        const error = validationData(userData);
+        if(error.length > 0){
+            return res.status(400).json({
+                message:'กรอกข้อมูลไม่ครบถ้วน',
+                error:error
+            });
+        }
+        const {firstname,lastname,phone,date,starttime,endtime,nog} = userData;
+        const [userResult] = await conn.query(`INSERT INTO User (First_name,Last_name,Phone_number) VALUES (?,?,?)`,[firstname,lastname,phone]);
+
+        const newUserId = userResult.insertId
+
+        const [reservationResult] = await conn.query(`INSERT INTO Reservations (User_id,Reserve_date,Start_time,End_time,Customer_come,Status) VALUES (?,?,?,?,?,'รอดำเนินการ')`,[newUserId,date,starttime,endtime,nog])
+
+        res.status(200).json({
+            message:'จองสำเร็จ',
+            reservationId:reservationResult.insertId
+        })
+    }catch (error){
+        res.status(500).json({
+            message:error.message || 'Internal Server error'
+        })
+    }
+})
 
     
 
