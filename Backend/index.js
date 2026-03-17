@@ -20,6 +20,7 @@ const initDBConnection = async ()=>{
     })
 }
 
+//ตรวจสอบข้อมูลขาเข้า
 const validationData = (userData) =>{
     let error = [];
     if(!userData.firstname){error.push('กรุณากรอกชื่อ')}
@@ -34,7 +35,7 @@ const validationData = (userData) =>{
 
 
 
-// Get User data
+// Get all User data
 app.get('/users',async (req,res)=>{
     try {
         const [rows] = await conn.query('SELECT * FROM User')
@@ -75,6 +76,7 @@ app.get('/users/:id',async (req,res)=>{
     }
 });
 
+//เส้นส่งข้อมูลการจองของลูกค้า
 app.post('/reservation',async (req,res)=>{
     let userData = req.body;
     try{
@@ -103,7 +105,32 @@ app.post('/reservation',async (req,res)=>{
     }
 })
 
+// เส้น login ระบบ Admin post
+ 
+app.post('/login',async(req,res)=>{
+    try{
+        const {username,password} = req.body;
+
+        const [result] = await conn.query('SELECT * FROM Admin WHERE Admin_user = ? AND Admin_password = ?',[username,password]);
+        if(result.length === 0){
+            return res.status(401).json({message:' ชื่อผู้ใช้ไม่ถูกต้อง '});
+        }
+        res.json({
+            message:' เข้าสู่ระบบสำเร็จ',
+            data:result[0]
+        })
+    }catch (error){
+        console.error('Error :',error);
+        res.status(500).json({
+            message:error.message
+        })
+    }
+})
+
+
+
     
+
 
 app.listen(port,async()=>{
     await initDBConnection();
