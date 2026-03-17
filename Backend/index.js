@@ -109,9 +109,9 @@ app.post('/reservation',async (req,res)=>{
  
 app.post('/login',async(req,res)=>{
     try{
-        const {username,password} = req.body;
+        const {usernameDOM,passwordDOM} = req.body;
 
-        const [result] = await conn.query('SELECT * FROM Admin WHERE Admin_user = ? AND Admin_password = ?',[username,password]);
+        const [result] = await conn.query('SELECT * FROM Admin WHERE Admin_user = ? AND Admin_password = ?',[usernameDOM,passwordDOM]);
         if(result.length === 0){
             return res.status(401).json({message:' ชื่อผู้ใช้ไม่ถูกต้อง '});
         }
