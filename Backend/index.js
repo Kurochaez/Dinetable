@@ -87,7 +87,7 @@ app.post('/reservation',async (req,res)=>{
                 error:error
             });
         }
-        const {firstname,lastname,phone,date,starttime,endtime,nog} = userData;
+            const {firstname,lastname,phone,date,starttime,endtime,nog} = userData;
         const [userResult] = await conn.query(`INSERT INTO User (First_name,Last_name,Phone_number) VALUES (?,?,?)`,[firstname,lastname,phone]);
 
         const newUserId = userResult.insertId
