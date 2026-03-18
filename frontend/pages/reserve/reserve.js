@@ -24,6 +24,37 @@ const validationData = (userData) =>{
     return error;
 }
 
+const showModal = (type, message, errors = []) => {
+    const overlay   = document.getElementById('modal-overlay')
+    const modalImg  = document.getElementById('modal-img')
+    const title     = document.getElementById('modal-title')
+    const errorBox  = document.getElementById('modal-errors')
+    const btn       = document.getElementById('modal-btn')
+
+    if (type === 'success') {
+        // ✅ GIF ติ๊กถูก
+        modalImg.src = '/frontend/asset/img/verified.gif'
+        title.textContent = message
+        title.style.color = '#2ecc71'
+        errorBox.innerHTML = ''
+        btn.className = 'success'
+    } else {
+        // ❌ GIF กากบาท
+        modalImg.src = '/frontend/asset/img/letter-x.gif'
+        title.textContent = message
+        title.style.color = '#e74c3c'
+        // แสดงเหตุผล
+        errorBox.innerHTML = errors.map(e => `<div>• ${e}</div>`).join('')
+        btn.className = 'error'
+    }
+
+    overlay.classList.add('show')
+}
+
+const closeModal = () => {
+    document.getElementById('modal-overlay').classList.remove('show')
+}
+
 const SubmitData = async () =>{
     let firstnameDOM = document.querySelector('input[name="firstname"]');
     let lastNameDOM = document.querySelector('input[name="lastname"]');
@@ -43,21 +74,30 @@ const SubmitData = async () =>{
             nog:nogDOM.value
         }
         let error = validationData(userData) || [];
-        if(error.length>0){alert(error)    
+        if(error.length>0){showModal('error','กรอกข้อมูลไม่ครบถ้วน',error)      
             return
         }
         const response = await axios.post(`${BASE_URL}/reservation`,userData);
         console.log(response.data)
-        
-        
-        alert('ส่งการจองโต๊ะสำเร็จ');
 
-        window.location.reload();
+        showModal('success', 'จองโต๊ะสำเร็จแล้ว! 🎉')
+        
+        setTimeout(() => {
+            firstnameDOM.value = ''
+            lastNameDOM.value = ''
+            phoneDOM.value = ''
+            dateDOM.value = ''
+            startTimeDOM.value = ''
+            endTimeDOM.value = ''
+            nogDOM.value = ''
+        }, 3000)
+
+
     
     }catch(error){
-        alert(error.response?.data?.message || 'เกิดข้อผิดพลาด')
+        showToast(error.response?.data?.message || 'เกิดข้อผิดพลาด', 'error')
         console.error(error)
-    }
+    }   
 
         
 }
