@@ -7,7 +7,7 @@ const BASE_URL = 'http://localhost:8000'
 const validationData = (userData) =>{
     let error = [];
     if(!userData.firstname){error.push('กรุณากรอกชื่อ')}
-    if(!userData.lastname){error.push('กรุณากรอกน้ำสกุล')}
+    if(!userData.lastname){error.push('กรุณากรอกนามสกุล')}
      if(!userData.phone){
         error.push('กรุณากรอกเบอร์โทร');
     } else if(!/^\d+$/.test(userData.phone)){

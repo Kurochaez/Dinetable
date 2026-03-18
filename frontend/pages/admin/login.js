@@ -14,7 +14,7 @@ const login = async () =>{
         const response = await axios.post(`${BASE_URL}/login`,{usernameDOM,passwordDOM});
         sessionStorage.setItem('admin', JSON.stringify(response.data.data));
 
-         window.location.href = '/frontend/components/dashboard/dashboard.html';
+        window.location.href = '/frontend/components/dashboard/dashboard.html';
 
     }catch (err){
         errMessageDOM.style.display='block';

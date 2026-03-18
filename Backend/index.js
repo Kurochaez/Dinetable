@@ -24,12 +24,18 @@ const initDBConnection = async ()=>{
 const validationData = (userData) =>{
     let error = [];
     if(!userData.firstname){error.push('กรุณากรอกชื่อ')}
-    if(!userData.lastname){error.push('กรุณากรอกน้ำสกุล')}
-    if(!userData.phone){error.push('กรุณากรอกเบอร์โทร')}
+    if(!userData.lastname){error.push('กรุณากรอกนามสกุล')}
+    if(!userData.phone){
+        error.push('กรุณากรอกเบอร์โทร');
+    } else if(!/^\d+$/.test(userData.phone)){
+        error.push('เบอร์โทรต้องเป็นตัวเลขเท่านั้น');
+    } else if(userData.phone.length !== 10){
+        error.push('เบอร์โทรต้องมี 10 หลัก');
+    }
     if(!userData.date){error.push('กรุณากรอกวันที่')}
     if(!userData.starttime){error.push('กรุณากรอกช่วงเวลา')}
     if(!userData.endtime){error.push('กรุณากรอกช่วงเวลา')}
-    if(!userData.nog){error.push('กรุธากรอจำนวนคนที่มา')}
+    if(!userData.nog){error.push('กรุณากรอกจำนวนคนที่มา')}
     return error;
 }
 
@@ -87,10 +93,10 @@ app.post('/reservation',async (req,res)=>{
                 error:error
             });
         }
-            const {firstname,lastname,phone,date,starttime,endtime,nog} = userData;
+        const {firstname,lastname,phone,date,starttime,endtime,nog} = userData;
         const [userResult] = await conn.query(`INSERT INTO User (First_name,Last_name,Phone_number) VALUES (?,?,?)`,[firstname,lastname,phone]);
 
-        const newUserId = userResult.insertId
+        const newUserId = userResult.insertId;
 
         const [reservationResult] = await conn.query(`INSERT INTO Reservations (User_id,Reserve_date,Start_time,End_time,Customer_come,Status) VALUES (?,?,?,?,?,'รอดำเนินการ')`,[newUserId,date,starttime,endtime,nog])
 
@@ -108,7 +114,7 @@ app.post('/reservation',async (req,res)=>{
 // เส้น login ระบบ Admin post
  
 app.post('/login',async(req,res)=>{
-    try{
+    try{ 
         const {usernameDOM,passwordDOM} = req.body;
 
         const [result] = await conn.query('SELECT * FROM Admin WHERE Admin_user = ? AND Admin_password = ?',[usernameDOM,passwordDOM]);
@@ -126,10 +132,6 @@ app.post('/login',async(req,res)=>{
         })
     }
 })
-
-
-
-    
 
 
 app.listen(port,async()=>{
