@@ -203,7 +203,7 @@ app.patch('/reservations/:id/status', async (req, res) => {
         const { Status, Table_number } = req.body;
 
         let tableId = null;
-        console.log('Table_number:', Table_number); 
+        
         // หา tableId เฉพาะตอนที่มี Table_number
         if (Table_number) {
             const [Table] = await conn.query(

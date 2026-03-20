@@ -281,9 +281,13 @@
 /* footer */
 .popup-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center ;
+    align-items: center;
+    flex-direction: column;
     gap: 10px;
     margin-top: 15px;
+    gap: 15px;
+    width: 100%;
 }
 
 .popup-footer *{
@@ -294,13 +298,13 @@
     border-radius: 5px;
 }
 
-.status{
+.status {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: small;
-    justify-content: flex-start;
-    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
 }
 
 .status span:nth-child(1) , .status span:nth-child(3){
@@ -365,7 +369,30 @@
     color: white;
     cursor: pointer;
 }
+.cancel-btn{
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #5f5e5e;
+    color: white;
+    cursor: pointer;
+}
+.confirm-btn{
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #00f752;
+    color: white;
+    cursor: pointer;
+}
 
 .reject-btn:hover {
     background-color: #c0392b;
+}
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+    margin-top: 10px;
 }
