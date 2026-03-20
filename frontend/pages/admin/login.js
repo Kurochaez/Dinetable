@@ -49,7 +49,7 @@ const login = async () => {
         showModal('success', 'ยินดีต้อนรับ! 👋')
 
         document.getElementById('modal-btn').addEventListener('click', () => {
-            window.location.href = '/frontend/components/dashboard/dashboard.html';
+            window.location.href = '/frontend/pages/admin/assignment.html';
         }, { once: true })
 
     } catch (err) {
