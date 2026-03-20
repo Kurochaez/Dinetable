@@ -24,33 +24,36 @@
                     <div class="area-input-container">
                         <div class="form-group">
                             <label for="">First Name</label>
-                            <input type="text" name="firstname">
+                            <input type="text" name="firstname" required
+                            placeholder="please enter firstname">
                         </div>
                         <div class="form-group">
                             <label for="">Last Name</label>
-                            <input type="text" name="lastname">
+                            <input type="text" name="lastname" required
+                            placeholder="please enter lastname">
                         </div>
                         <div class="form-group">
                             <label for="">Phone Number</label>
-                            <input type="text" name="phone">
+                            <input type="text" name="phone" required
+                            placeholder="Ex. 098-xxx-xxxx">
                         </div>
                         <div class="form-group">
                             <label for="">Date</label>
-                            <input type="date" name="date">
+                            <input type="date" name="date" required>
                         </div>
                         <div class="row">
                             <div class="form-group">
                                 <label for="">Start Time</label>
-                                <input type="time" name="starttime">
+                                <input type="time" name="starttime" required>
                             </div>
                             <div class="form-group">
                                 <label for="">End Time</label>
-                                <input type="time" name="endtime">
+                                <input type="time" name="endtime" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="">Number of Guests</label>
-                            <input type="number" name="nog">
+                            <input type="number" name="nog" min="1" max="15" value="1">
                         </div>
 
                         <div class="form-group">
