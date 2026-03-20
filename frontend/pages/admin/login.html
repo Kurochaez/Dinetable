@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,33 +20,44 @@
         </div>
         <div class="login-area">
             <div class="form-item">
-                <form action="" method="post">
+                <form action="">
                     <div class="form-login-head">
                         <h2>Admin Login</h2>
                     </div>
                     <div class="area-input">
                         <div class="area-input-container">
-
                             <div class="form-group">
-                                <label for="">Admin Username</label>
-                                <input type="text" name="username">
+                                <label>Admin Username</label>
+                                <input type="text" name="username" placeholder="Username">
                             </div>
                             <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="text" name="password">
+                                <label>Password</label>
+                                <input type="password" name="password" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <button type="submit">Login</button>
+                                <button type="button" onclick="login()">Login</button>
                             </div>
                             <div class="form-group">
-                                <div. class="error-message">
+                                <div class="error-message" style="display:none;" id="error-message">
                                     Admin Username or Password invalid
-                                </div.>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <div id="modal-gif" class="modal-gif">
+                <img id="modal-img" src="" alt="">
+            </div>
+            <h3 id="modal-title"></h3>
+            <div id="modal-errors" class="modal-errors"></div>
+            <button id="modal-btn" onclick="closeModal()">ตกลง</button>
         </div>
     </div>
 
@@ -59,8 +69,8 @@
             initNavbar();
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/frontend/components/navbar/navbar.js"></script>
- 
+    <script src="/frontend/pages/admin/login.js"></script>
 </body>
 </html>

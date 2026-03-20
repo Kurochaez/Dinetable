@@ -86,9 +86,26 @@
     color: var(--snow);
     background: var(--danger);
     padding: 10px;
+    border-radius: 7px;
+    text-align: center;
     
 }
 
 .area-input-container .form-group{
     margin-bottom: 20px;
+    
+}
+
+button{
+    border-radius: 6px;
+}
+
+.login-area .form-group input {
+    display: block;      
+    width: 100% ; 
+    margin: 10px auto;   
+    padding: 12px 20px;
+    border-radius: 12px; 
+    border: 1px solid #ddd;
+    box-sizing: border-box; 
 }

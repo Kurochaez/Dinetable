@@ -23,46 +23,55 @@
                 <div class="area-input">
                     <div class="area-input-container">
                         <div class="form-group">
-                            <label for="">First Name</label>
-                            <input type="text" name="firstname" required
-                            placeholder="please enter firstname">
+                            <label for="firstname">First Name</label>
+                            <input type="text" id = "firstname" name="firstname" placeholder="First name">
                         </div>
                         <div class="form-group">
-                            <label for="">Last Name</label>
-                            <input type="text" name="lastname" required
-                            placeholder="please enter lastname">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" id ="lastname" name="lastname" placeholder="Last name">
                         </div>
                         <div class="form-group">
-                            <label for="">Phone Number</label>
-                            <input type="text" name="phone" required
-                            placeholder="Ex. 098-xxx-xxxx">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id = "phone" name="phone" placeholder="0xx-xxx-xxxx">
                         </div>
                         <div class="form-group">
-                            <label for="">Date</label>
-                            <input type="date" name="date" required>
+                            <label for="date">Date</label>
+                            <input type="date" id = "date" name="date">
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="">Start Time</label>
-                                <input type="time" name="starttime" required>
+                                <label for="starttime">Start Time</label>
+                                <input type="time" id = "starttime" name="starttime">
                             </div>
                             <div class="form-group">
-                                <label for="">End Time</label>
-                                <input type="time" name="endtime" required>
+                                <label for="endtime">End Time</label>
+                                <input type="time" id = "endtime" name="endtime">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">Number of Guests</label>
-                            <input type="number" name="nog" min="1" max="15" value="1">
+                            <label for="nog">Number of Guests</label>
+                            <input type="number" id = "nog" name="nog">
                         </div>
 
                         <div class="form-group">
-                            <button type="submit">Reserve Table</button>
+                            <button type="button"  onclick="SubmitData()">Reserve Table</button>
                         </div>
+
                     </div>
 
                 </div>
             </form>
+
+                <div id="modal-overlay" class="modal-overlay">
+                    <div class="modal-box">
+                        <div id="modal-gif" class="modal-gif">
+                            <img id="modal-img" src="" alt="">
+                        </div>
+                        <h3 id="modal-title"></h3>
+                        <div id="modal-errors" class="modal-errors"></div>
+                        <button id="modal-btn" onclick="closeModal()">ตกลง</button>
+                    </div>
+                </div>
         </div>
     </div>
 
@@ -74,8 +83,9 @@
             initNavbar();
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/frontend/components/navbar/navbar.js"></script>
+    <script src="/frontend/pages/reserve/reserve.js"></script>
  
 </body>
 </html>

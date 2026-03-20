@@ -1,0 +1,43 @@
+version: '3.8'
+#การเขียนให้เขียนตัวโค๊ดของใครให้อยู่ใน tab ของมัน
+services:
+  db:
+    image: mysql:8.0 # ปรับเป็น MySQL 8.0 เพื่อความทันสมัย (หรือใช้ 5.7 ตามเดิมได้หากต้องการ)
+    container_name: mysql_StoreDB_project820
+    # MySQL 8.0 ใช้ plugin ตัวใหม่ จึงต้องใช้คำสั่งนี้เพื่อให้เข้ากับ Client รุ่นเก่าได้ดีขึ้น
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: StoreDB
+    ports:
+      - "8820:3306"
+    volumes:
+      - mysql_StoreDB_project820:/var/lib/mysql
+    networks:
+      - Webproject820
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_project820
+    environment:
+      PMA_HOST: db # ใช้ชื่อ Service "db" แทนชื่อ Container เพื่อความยืดหยุ่นในระบบ Network
+      PMA_PORT: 3306 #port default ของ sql 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 64M # เพิ่มลิมิตการอัปโหลดไฟล์ SQL
+    ports:
+      - "8821:80"  #ห้ามเหมือนอันบน
+    depends_on:
+      - db
+    networks:
+      - Webproject820
+    restart: always
+
+networks:
+  Webproject820:
+    driver: bridge
+
+volumes:
+  mysql_StoreDB_project820:
+    driver: local
