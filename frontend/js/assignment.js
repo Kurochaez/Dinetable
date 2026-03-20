@@ -4,11 +4,12 @@ const BASE_URL = 'http://localhost:8000'
 let selectedTable = null;
 let selectedReservationId = null;
 
-
+let allReservations = [];
 
 const loadReservations = async () =>{
     try{
         const response = await axios.get(`${BASE_URL}/reservations`);
+        allReservations = response.data;
         renderList(response.data);
 
     }catch( err){
@@ -20,6 +21,14 @@ const formatTime = (time) => {
     return time.slice(0, 5); 
 }
 
+//กรองปุ่มหน้า Reserve
+const filterByStatus = () => {
+    const selectedStatus = document.getElementById('status').value;
+    const filtered = allReservations.filter(item => item.Status === selectedStatus);
+    renderList(filtered);
+}
+
+//ส่วนแสดงข้อมูลหน้าการจอง
 const renderList = (data) => {
     const listArea = document.getElementById('list-body');
     listArea.innerHTML = '';
@@ -86,6 +95,34 @@ const openPopup = async (reservationId, name, time, guests) => {
     document.getElementById('popup').style.display = 'flex';
 }
 
+const cancelReservation = async () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+        showMessage('กรุณา Login ก่อน', false);
+        return;
+    }
+
+    try {
+        await axios.patch(
+            `${BASE_URL}/reservations/${selectedReservationId}/status`,
+            { Status: 'จองไม่สำเร็จ', Table_number: null },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        showMessage('ยกเลิกการจองสำเร็จ', true);
+        setTimeout(() => {
+            closePopup();
+            loadReservations();
+        }, 1500);
+
+    } catch (err) {
+        showMessage('เกิดข้อผิดพลาด กรุณาลองใหม่', false);
+    }
+}
+
+
+
+
 const closePopup = () => {
     document.getElementById('popup').style.display = 'none';
     
@@ -108,17 +145,18 @@ const confirmAssign = async () => {
         return;
     }
 
-    const admin = JSON.parse(sessionStorage.getItem('admin'));
-    if (!admin) {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
         showMessage('กรุณา Login ก่อน', false);
         return;
     }
+
     try {
-        await axios.patch(`${BASE_URL}/reservations/${selectedReservationId}/status`, {
-            Status: 'จองสำเร็จ',
-            Table_number: selectedTable,
-            Admin_id: admin.Admin_Id
-        });
+        await axios.patch(
+            `${BASE_URL}/reservations/${selectedReservationId}/status`,
+            { Status: 'จองสำเร็จ', Table_number: selectedTable },
+            { headers: { Authorization: `Bearer ${token}` } } 
+        )
 
 
         showMessage('Assign สำเร็จ', true); 

@@ -44,7 +44,7 @@ const login = async () => {
 
     try {
         const response = await axios.post(`${BASE_URL}/login`, { usernameDOM, passwordDOM })
-        sessionStorage.setItem('admin', JSON.stringify(response.data.data))
+        sessionStorage.setItem('token', response.data.token)
 
         showModal('success', 'ยินดีต้อนรับ! 👋')
 

@@ -1,9 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql2/promise');
 const cor = require('cors')
-const port = 8000;
+
+const jwt = require('jsonwebtoken');
+const port = process.env.PORT;
+const SECRET = process.env.JWT_SECRET;
 
 app.use(bodyParser.json());
 app.use(cor());
@@ -167,9 +172,14 @@ app.post('/login',async(req,res)=>{
         if(result.length === 0){
             return res.status(401).json({message:' ชื่อผู้ใช้ไม่ถูกต้อง '});
         }
+        const token = jwt.sign(
+            { Admin_id: result[0].Admin_id },
+            SECRET,
+            { expiresIn: '1d' }
+        );
         res.json({
             message:' เข้าสู่ระบบสำเร็จ',
-            data:result[0]
+            token
         })
     }catch (error){
         console.error('Error :',error);
@@ -183,38 +193,64 @@ app.post('/login',async(req,res)=>{
 
 
 //เส้น Patch เปลี่ยนสถานะการจองของลูกค้า
-app.patch('/reservations/:id/status',async (req,res)=>{
-    try{
-        const {id} = req.params;
-        const {Status,Table_number,Admin_username} = req.body;
-        const [adminRows] = await conn.query('SELECT Admin_id FROM Admin WHERE Admin_user = ?', [Admin_username]);
-        
-        if (adminRows.length === 0) {
-            return res.status(404).json({ message: 'ไม่พบข้อมูล Admin รายนี้' });
+app.patch('/reservations/:id/status', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        const decoded = jwt.verify(token, SECRET);
+        const currentAdminId = decoded.Admin_id;
+
+        const { id } = req.params;
+        const { Status, Table_number } = req.body;
+
+        let tableId = null;
+        console.log('Table_number:', Table_number); 
+        // หา tableId เฉพาะตอนที่มี Table_number
+        if (Table_number) {
+            const [Table] = await conn.query(
+                'SELECT Table_ID FROM `Table Detail` WHERE Table_Number = ?',
+                [Table_number]
+            );
+            tableId = Table[0]?.Table_ID || null;
+
+            // UPDATE Table Detail เป็นไม่ว่าง
+            await conn.query(
+                'UPDATE `Table Detail` SET Current_Status = ? WHERE Table_ID = ?',
+                ['ไม่ว่าง', tableId]
+            );
+
+            // INSERT Table_Status
+            await conn.query(
+                'INSERT INTO Table_Status (Table_id, Admin_id, Start_time, End_time, Status) VALUES (?, ?, NOW(), NOW(), ?)',
+                [tableId, currentAdminId, 'โต๊ะไม่ว่าง']
+            );
+        } else {
+            // ✅ ยกเลิกการจอง — คืนโต๊ะให้ว่าง
+            const [reservation] = await conn.query(
+                'SELECT Table_id FROM Reservations WHERE Reservation_id = ?', [id]
+            );
+            const oldTableId = reservation[0]?.Table_id;
+
+            if (oldTableId) {
+                await conn.query(
+                    'UPDATE `Table Detail` SET Current_Status = ? WHERE Table_ID = ?',
+                    ['ว่าง', oldTableId]
+                );
+            }
         }
 
-        const currentAdminId = adminRows[0].Admin_id;
-        
-        const [Table] = await conn.query('SELECT Table_ID FROM `Table Detail` WHERE  Table_Number = ?',[Table_number]);
-        const tableId = Table[0]?.Table_ID || null;
-
+        // UPDATE Reservations
         await conn.query(
-            'UPDATE Reservations SET Status = ?, Table_id = ?,Admin_id = ? WHERE Reservation_id = ? ',[Status,tableId,currentAdminId,id]);
-        
-        await conn.query('UPDATE `Table Detail` SET Current_Status = ? WHERE  Table_ID = ?',['ไม่ว่าง',tableId])
-        
-        await conn.query(
-            'INSERT INTO Table_Status (Table_id, Admin_id, Start_time, End_time, Status) VALUES (?, ?, NOW(), NOW(), ?)',
-            [tableId, currentAdminId, 'โต๊ะไม่ว่าง']
+            'UPDATE Reservations SET Status = ?, Table_id = ?, Admin_id = ? WHERE Reservation_id = ?',
+            [Status, tableId, currentAdminId, id]
         );
 
-        res.json({message:'อัปเดตสำเร็จ'});
+        res.json({ message: 'อัปเดตสำเร็จ' });
 
-    }catch (error){
-        console.error('Error detail: ',error.message);
-        res.status(500).json({message:error.message});
+    } catch (err) {
+        console.error('Error detail:', err.message);
+        res.status(500).json({ message: err.message });
     }
-})
+});
 
 app.listen(port,async()=>{
     await initDBConnection();
