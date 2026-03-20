@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/asset/css/login.css">
+    <link rel="stylesheet" href="/frontend/asset/css/reserve.css">
+    <title>DineTable</title>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="container-login">
+        <div class="message-area">
+            <div class="message-item">
+                <h1>Welcome</h1>
+                <h1>Admin!</h1>
+                <p>Manage your reservations easily</p>
+            </div>
+        </div>
+        <div class="login-area">
+            <div class="form-item">
+                <form action="" method="post">
+                    <div class="form-login-head">
+                        <h2>Admin Login</h2>
+                    </div>
+                    <div class="area-input">
+                        <div class="area-input-container">
+                            <div class="form-group">
+                                <label for="">Admin Username</label>
+                                <input type="text" name="username" required placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="text" name="password" required placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit">Log in</button>
+                            </div>
+                            <div class="form-group">
+                                <div class="error-message">
+                                    Admin Username or Password invalid
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        fetch('/frontend/components/navbar/navbar.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+            initNavbar();
+        });
+    </script>
+
+    <script src="/frontend/components/navbar/navbar.js"></script>
+ 
+</body>
+</html>

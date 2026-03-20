@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/asset/css/assignment.css">
+    <title>DineTable</title>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="container">
+        <div class="assignment-bg">
+            <img src="/frontend/asset/img/hero-img.jpg" alt="hero image by dine table" >
+        </div>
+        <div class="area-assignment">
+            <div class="head"><h1>Reservation Assignment</h1></div>
+            <div class="list-container">
+                <div class="list-area">
+                    <div class="filter">
+                        <form class="form-search" action="" method="post">
+                            <div class="search-container">
+                                <input type="search" name="search" id="search" placeholder="Check your phone number reservation">
+                                <button class="search-btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                        <select name="status" id="status">
+                            <option value="รอดำเนินการ">Pending</option>
+                            <option value="อนุมัติ">Reserved</option>
+                            <option value="ไม่อนุมัติ">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="list-table">
+                        <div class="list-table-area list-head-bg">
+                            <div class="list-head">Full Name</div>
+                            <div class="list-head">Phone Number</div>
+                            <div class="list-head">Date</div>
+                            <div class="list-head">Time Range</div>
+                            <div class="list-head">Guests</div>
+                            <div class="list-head">Table</div>
+                            <div class="list-head">Action</div>
+                        </div>
+                        <div class="list-table-area">
+                            <div class="list-item">Kurochae Mi</div>
+                            <div class="list-item">098-548-5489</div>
+                            <div class="list-item">09/02/2002</div>
+                            <div class="list-item">10:00 AM - 12:00 PM</div>
+                            <div class="list-item">9</div>
+                            <div class="list-item">-</div>
+                            <div class="list-item">
+                                <button onclick="openPopup()">Assign</button>
+                            </div>
+                        </div>
+                        <div class="list-table-area">
+                            <div class="list-item">Full Name</div>
+                            <div class="list-item">Phone Number</div>
+                            <div class="list-item">Date</div>
+                            <div class="list-item">Time Range</div>
+                            <div class="list-item">Guests</div>
+                            <div class="list-item">Table</div>
+                            <div class="list-item">Action</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="inset-content">
+                <h3>Assign Table</h3>
+                <p class="data-item">Kurochae mi</p>
+                <hr>
+    
+                <div class="zone">
+                    <i class="fa-regular fa-clock"></i><span class="data-item"> 10:00 - 12:00</span>
+                    <i class="fa-solid fa-user"></i><span class="data-item"> 9 </span>
+                </div>
+    
+                <div class="zone">
+                    <p>Zone A</p>
+                    <div class="tables">
+                        <button>A1</button>
+                        <button class="reserved" disabled>A2</button>
+                        <button>A3</button>
+                        <button>A4</button>
+                    </div>
+                </div>
+    
+                <div class="zone">
+                    <p>Zone B</p>
+                    <div class="tables">
+                        <button>B1</button>
+                        <button>B2</button>
+                        <button class="reserved" disabled>B3</button>
+                        <button>B4</button>
+                    </div>
+                </div>
+                <div class="zone">
+                    <p>Zone C</p>
+                    <div class="tables">
+                        <button>C1</button>
+                        <button>C2</button>
+                        <button class="reserved" disabled>C3</button>
+                        <button>C4</button>
+                    </div>
+                </div>
+                <div class="zone">
+                    <p>Zone D</p>
+                    <div class="tables">
+                        <button>D1</button>
+                        <button>D2</button>
+                        <button class="reserved" disabled>D3</button>
+                        <button>D4</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="popup-footer">
+                    <div class="status">
+                        <span></span>
+                        <span>Available</span>
+                        <span></span>
+                        <span>Reserved</span>
+                    </div>
+
+                    <button class="cancel-btn" onclick="closePopup()">Cancel</button>
+                    <button class="confirm-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('/frontend/components/navbar/navbar.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+            initNavbar();
+        });
+    </script>
+
+    <script src="/frontend/components/navbar/navbar.js"></script>
+    <script src="/frontend/js/assignment.js"></script>
+ 
+</body>
+</html>
