@@ -1,3 +1,4 @@
+// เปลี่ยนหน้า + ไฮไลท์สี ตอนเลือกหน้านั้น 
 function initNavbar() {
     const links = document.querySelectorAll(".menu-item");
     const currentPage = window.location.pathname;

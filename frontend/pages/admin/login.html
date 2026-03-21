@@ -20,7 +20,7 @@
         </div>
         <div class="login-area">
             <div class="form-item">
-                <form action="" method="post">
+                <form class="form-login" action="" method="post">
                     <div class="form-login-head">
                         <h2>Admin Login</h2>
                     </div>
@@ -32,14 +32,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Password</label>
-                                <input type="text" name="password" required placeholder="Enter password">
+                                <input type="password" name="password" required placeholder="Enter password">
                             </div>
                             <div class="form-group">
                                 <button type="submit">Log in</button>
                             </div>
                             <div class="form-group">
                                 <div class="error-message">
-                                    Admin Username or Password invalid
                                 </div>
                             </div>
                         </div>
@@ -49,17 +48,22 @@
         </div>
     </div>
     
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="/frontend/api/api.js"></script>
+    <script src="/frontend/js/login.js"></script>
     <script>
         fetch('/frontend/components/navbar/navbar.html')
         .then(res => res.text())
         .then(data => {
             document.getElementById("navbar").innerHTML = data;
             initNavbar();
+            updateMenuVisibility();
         });
-    </script>
+        </script>
 
     <script src="/frontend/components/navbar/navbar.js"></script>
- 
+    <script src="/frontend/js/auth.js"></script>
+    <script src="/frontend/js/logout.js"></script>
+    
 </body>
 </html>

@@ -91,6 +91,7 @@ body *{
     color: var(--snow);
     background: var(--danger);
     padding: 10px;
+    display: none;
 }
 
 .area-input-container .form-group{
