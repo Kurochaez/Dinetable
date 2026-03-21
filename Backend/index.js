@@ -17,11 +17,11 @@ let conn = null;
 
 const initDBConnection = async ()=>{
     conn = await mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'root',
-        database:'StoreDB',
-        port:8820
+        host:process.env.DB_HOST,
+        user:process.env.DB_USER,
+        password:process.env.DB_PASSWORD,
+        database:process.env.DB_NAME,
+        port:process.env.DB_PORT
     })
 }
 
@@ -112,11 +112,10 @@ app.get('/reservations',async (req,res) => {
         res.status(500).json({
             message:error.message
         });
-
     }
 })
 
-//เส้นโต๊ะที่จองแล้ว
+//เส้นดูโต๊ะที่จองแล้ว
 app.get('/tables/reserved', async (req, res) => {
     try {
         const [result] = await conn.query(
@@ -129,7 +128,7 @@ app.get('/tables/reserved', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-});
+});  
 
 
 
@@ -217,14 +216,14 @@ app.patch('/reservations/:id/status', async (req, res) => {
                 'UPDATE `Table Detail` SET Current_Status = ? WHERE Table_ID = ?',
                 ['ไม่ว่าง', tableId]
             );
-
+ 
             // INSERT Table_Status
             await conn.query(
                 'INSERT INTO Table_Status (Table_id, Admin_id, Start_time, End_time, Status) VALUES (?, ?, NOW(), NOW(), ?)',
                 [tableId, currentAdminId, 'โต๊ะไม่ว่าง']
             );
         } else {
-            // ✅ ยกเลิกการจอง — คืนโต๊ะให้ว่าง
+            //  ยกเลิกการจอง + คืนค่าโต๊ะให้ว่าง
             const [reservation] = await conn.query(
                 'SELECT Table_id FROM Reservations WHERE Reservation_id = ?', [id]
             );
