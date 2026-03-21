@@ -89,7 +89,7 @@ function renderBookings(bookings) {
         `;
 
         for (let i = 1; i < span; i++) {
-          slots[startIndex + i].style.display = "none"; // ❗ ไม่ remove แล้ว
+          slots[startIndex + i].style.display = "none"; 
         }
       }
     });
