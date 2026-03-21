@@ -1,3 +1,16 @@
+:root{
+    --black : #000;
+    --white : #fff;
+    --snow : snow;
+    --light-gray: #ccc;
+    --gray: gray;
+    --nav-bg : #222831;
+    --nav-bg-hover : rgb(255, 255, 255 , 0.2);
+    --nav-color-hover : #E67E22;
+    --content-bg : #fafafa;
+    --container : 80%;
+}
+
 @font-face {
     font-family: 'Kanit';
     src: url('../font/Kanit-Regular.ttf') format('truetype');
@@ -12,22 +25,14 @@
     font-style: normal;
 }
 
-:root{
-    --black : #000;
-    --white : #fff;
-    --snow : snow;
-    --light-gray: #ccc;
-    --nav-bg : #222831;
-    --nav-bg-hover : rgb(255, 255, 255, 0.2);
-    --nav-color-hover : #E67E22;
-    --content-bg : #fafafa;
-    --container : 80%;
-}
-
 body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body *{
     font-family: 'Kanit';
 }
 
@@ -36,7 +41,7 @@ a{
     color: var(--back);
 }
 
-img{
+img {
     object-fit: cover;
     object-position: center;
 }
@@ -47,7 +52,8 @@ img{
     justify-content: center;
 }
 
-/* navbar */
+
+/*------------------ navbar ----------------------*/
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -63,20 +69,21 @@ img{
     font-weight: bolder;
 }
 
-
-.main-menu a , .side-menu a{
+.main-menu a , .side-menu a {
     padding: 10px;
     border-radius: 25px;
     margin: 0 5px;
 }
 
-.menu-active{
+
+.menu-active {
     background: var(--nav-color-hover);
 }
 
-/*  end navbar */
+/*------------------ end navbar ----------------------*/
 
-.container-form{
+
+.container-form {
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -95,15 +102,15 @@ img{
     filter: blur(1px);
 }
 
+
 .area-form{
     box-sizing: border-box;
     width: 80%;
-    /* background: red; */
+    /* background:red; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-
 }
 
 .topic{
@@ -131,10 +138,9 @@ img{
 }
 
 .search-container{
-    display: flex;
+    display:flex;
     width: 50%;
     height: 50px;
-    font-family: 'Kanit';
 }
 
 .search-container input{
@@ -148,11 +154,12 @@ img{
 }
 
 .search-container input:focus{
-    border:3px solid var(--nav-color-hover);
+    border: 3px solid var(--nav-color-hover)
 }
 
+
 .search-btn{
-    background: var(--nav-color-hover);
+    background:var(--nav-color-hover);
     color:white;
     border:none;
     padding:10px 18px;
@@ -161,7 +168,6 @@ img{
     display:flex;
     align-items:center;
     gap:5px;
-    font-family: inherit;
     font-size: medium;
 }
 
@@ -171,7 +177,6 @@ img{
 
 
 
-/* zone dashboard table */
 /*---------------- zone dashboard table -----------------*/
 /* =========================
    RESERVATION BOARD
@@ -190,6 +195,15 @@ img{
     font-weight:bold;
     margin-bottom:20px;
     color:#2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#date{
+    padding: 5%;
+    border-radius: 5px;
+    border: 2px solid var(--gray);
 }
 
 .table-wrapper{

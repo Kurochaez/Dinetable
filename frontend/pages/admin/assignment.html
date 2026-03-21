@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/asset/css/assignment.css">
     <title>DineTable</title>
 </head>
-
 <body>
     <div id="navbar"></div>
+
     <div class="container">
         <div class="assignment-bg">
-            <img src="/frontend/asset/img/hero-img.jpg" alt="hero image by dine table">
+            <img src="/frontend/asset/img/hero-img.jpg" alt="hero image by dine table" >
         </div>
         <div class="area-assignment">
-            <div class="head">
-                <h1>Reservation Assignment</h1>
-            </div>
+            <div class="head"><h1>Reservation Assignment</h1></div>
             <div class="list-container">
                 <div class="list-area">
                     <div class="filter">
                         <form class="form-search" action="" method="post">
                             <div class="search-container">
-                                <input type="search" name="search" id="search"
-                                    placeholder="Check your phone reservation">
+                                <input type="search" name="search" id="search" placeholder="Check your phone number reservation">
                                 <button class="search-btn">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                     Search
                                 </button>
                             </div>
                         </form>
-                        <select name="status" id="status" onchange="filterByStatus()">
+                        <select name="status" id="status">
                             <option value="รอดำเนินการ">Pending</option>
-                            <option value="จองสำเร็จ">Reserved</option>     
-                            <option value="จองไม่สำเร็จ">Cancelled</option>
+                            <option value="อนุมัติ">Reserved</option>
+                            <option value="ไม่อนุมัติ">Cancelled</option>
                         </select>
                     </div>
                     <div class="list-table">
@@ -47,9 +43,26 @@
                             <div class="list-head">Table</div>
                             <div class="list-head">Action</div>
                         </div>
-                        <div id = "list-body"></div>
-
-                        
+                        <div class="list-table-area">
+                            <div class="list-item">Kurochae Mi</div>
+                            <div class="list-item">098-548-5489</div>
+                            <div class="list-item">09/02/2002</div>
+                            <div class="list-item">10:00 AM - 12:00 PM</div>
+                            <div class="list-item">9</div>
+                            <div class="list-item">-</div>
+                            <div class="list-item">
+                                <button onclick="openPopup()">Assign</button>
+                            </div>
+                        </div>
+                        <div class="list-table-area">
+                            <div class="list-item">Full Name</div>
+                            <div class="list-item">Phone Number</div>
+                            <div class="list-item">Date</div>
+                            <div class="list-item">Time Range</div>
+                            <div class="list-item">Guests</div>
+                            <div class="list-item">Table</div>
+                            <div class="list-item">Action</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,57 +71,52 @@
 
     <!-- POPUP -->
     <div id="popup" class="popup">
-         <div id="popup-message" style="display:none; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;"></div>
-    
         <div class="popup-content">
             <div class="inset-content">
-
-                <p class="data-item" id="popup-name"></p>
+                <h3>Assign Table</h3>
+                <p class="data-item">Kurochae mi</p>
                 <hr>
+    
                 <div class="zone">
-                    <i class="fa-regular fa-clock"></i>
-                    <span class="data-item" id="popup-time"></span>
-                    <i class="fa-solid fa-user"></i>
-                    <span class="data-item" id="popup-guests"></span>
+                    <i class="fa-regular fa-clock"></i><span class="data-item"> 10:00 - 12:00</span>
+                    <i class="fa-solid fa-user"></i><span class="data-item"> 9 </span>
                 </div>
-
+    
                 <div class="zone">
                     <p>Zone A</p>
                     <div class="tables">
-                        <button onclick="selectTable(this, 'A1')">A1</button>
-                        <button onclick="selectTable(this, 'A2')">A2</button>
-                        <button onclick="selectTable(this, 'A3')">A3</button>
-                        <button onclick="selectTable(this, 'A4')">A4</button>
+                        <button>A1</button>
+                        <button class="reserved" disabled>A2</button>
+                        <button>A3</button>
+                        <button>A4</button>
                     </div>
                 </div>
-
+    
                 <div class="zone">
                     <p>Zone B</p>
                     <div class="tables">
-                        <button onclick="selectTable(this, 'B1')">B1</button>
-                        <button onclick="selectTable(this, 'B2')">B2</button>
-                        <button onclick="selectTable(this, 'B3')">B3</button>
-                        <button onclick="selectTable(this, 'B4')">B4</button>
+                        <button>B1</button>
+                        <button>B2</button>
+                        <button class="reserved" disabled>B3</button>
+                        <button>B4</button>
                     </div>
                 </div>
-
                 <div class="zone">
                     <p>Zone C</p>
                     <div class="tables">
-                        <button onclick="selectTable(this, 'C1')">C1</button>
-                        <button onclick="selectTable(this, 'C2')">C2</button>
-                        <button onclick="selectTable(this, 'C3')">C3</button>
-                        <button onclick="selectTable(this, 'C4')">C4</button>
+                        <button>C1</button>
+                        <button>C2</button>
+                        <button class="reserved" disabled>C3</button>
+                        <button>C4</button>
                     </div>
                 </div>
-
                 <div class="zone">
                     <p>Zone D</p>
                     <div class="tables">
-                        <button onclick="selectTable(this, 'D1')">D1</button>
-                        <button onclick="selectTable(this, 'D2')">D2</button>
-                        <button onclick="selectTable(this, 'D3')">D3</button>
-                        <button onclick="selectTable(this, 'D4')">D4</button>
+                        <button>D1</button>
+                        <button>D2</button>
+                        <button class="reserved" disabled>D3</button>
+                        <button>D4</button>
                     </div>
                 </div>
                 <hr>
@@ -118,30 +126,28 @@
                         <span>Available</span>
                         <span></span>
                         <span>Reserved</span>
-                    </div> 
-                </div>
-                <div class="action-buttons">
+                    </div>
+
                     <button class="cancel-btn" onclick="closePopup()">Cancel</button>
-                    <button class="reject-btn" onclick="cancelReservation()">ยกเลิก</button>
-                    <button class="confirm-btn" onclick="confirmAssign()">Confirm</button>
+                    <button class="confirm-btn">Confirm</button>
                 </div>
             </div>
         </div>
-    </div>>
+    </div>
 
-        <script>
-            fetch('/frontend/components/navbar/navbar.html')
-                .then(res => res.text())
-                .then(data => {
-                    document.getElementById("navbar").innerHTML = data;
-                    initNavbar();
-                });
-        </script>
+    <script>
+        fetch('/frontend/components/navbar/navbar.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+            initNavbar();
+        });
+    </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-        <script src="/frontend/components/navbar/navbar.js"></script>
-        <script src="/frontend/js/assignment.js"></script>
-
+    <script src="/frontend/components/navbar/navbar.js"></script>
+    <script src="/frontend/js/auth.js"></script>
+    <script src="/frontend/js/assignment.js"></script>
+    <script src="/frontend/js/logout.js"></script>
+ 
 </body>
-
 </html>

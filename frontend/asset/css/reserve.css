@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @font-face {
     font-family: 'Kanit';
     src: url('../font/Kanit-Regular.ttf') format('truetype');
@@ -321,3 +322,134 @@
     transform: translateY(-2px);
 }
 
+=======
+:root{
+    --max-height-page : calc(100vh - 8vh);
+
+    --base-color-orange : #E67E22;
+    --white : #fff;
+    --soft-gray : #f1f1f1;
+    --secondary: #ccc;
+    --snow : snow;
+    --black : black;
+    --gray : gray;
+
+}
+
+@font-face {
+    font-family: 'Kanit';
+    src: url('../font/Kanit-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Kanit-thin';
+    src: url('../font/Kanit-Thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body *{
+    font-family: 'Kanit';
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    height: var(--max-height-page);
+    box-sizing: border-box  ;
+}
+
+.form-bg{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.form-bg img{
+    width: 100%;
+    height: 100%;
+    object-position: top;
+    filter: blur(2px);
+}
+
+.area-form-reserve{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* background: #000; */
+    width: 80%;
+    height: var(--max-height-page);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-reserve{
+    width: 25vw;
+    display: grid;
+    place-items: center;
+}
+
+.form-reserve-head{
+    background: var(--soft-gray);
+    width: 100%;
+    text-align: center;
+    padding: 2em 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.form-reserve-head h2 , p{
+    margin: auto;
+}
+
+.form-reserve-head p{
+    color: var(--gray);
+}
+
+.area-input{
+    width: 100%;
+    background: var(--white);
+    display: grid;
+    place-items: center;
+    padding: 1em 0;
+    box-sizing: border-box;
+    border-radius: 0 0 10px 10px;
+}
+
+.area-input-container{
+    width: 100%;
+}
+
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* gap: 5px; */
+}
+
+
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    padding: 0 2em;
+    margin: 5px 0;
+}
+
+.form-group input{
+    margin: 5px 0;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.area-input button{
+    padding: 10px 0;
+    cursor: pointer;
+    background: var(--base-color-orange);
+    border: none;
+    color: var(--white);
+    font-size: medium;
+}
+>>>>>>> origin/kurochaez

@@ -45,6 +45,63 @@ const validationData = (userData) =>{
 }
 
 
+// Get วัน, เวลา, id เอามาแสดงหน้า dashboard
+app.post('/dashboard',async (req,res)=>{
+    try {
+        let {phone , date} = req.body;
+
+        phone = phone || "";
+
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() );
+        const fixDate = newDate.toISOString().split('T')[0];
+        const results = await conn.query(`
+            SELECT 
+                u.User_id, 
+                -- เปลี่ยนจาก DATE() เป็น DATE_FORMAT()
+                DATE_FORMAT(CONVERT_TZ(r.Reserve_date, '+00:00', '+07:00'), '%Y-%m-%d') AS Reserve_date, 
+                r.Start_time, 
+                r.End_time, 
+                t.Table_Number 
+            FROM User u
+            INNER JOIN Reservations r ON r.User_id = u.User_id
+            INNER JOIN \`Table Detail\` t ON t.Table_ID = r.Table_id
+            WHERE r.Status = 'จองสำเร็จ' 
+            AND (u.Phone_number LIKE ? AND DATE(CONVERT_TZ(r.Reserve_date, '+00:00', '+07:00')) = ?)
+            ORDER BY Reserve_date, r.Start_time, r.End_time ASC
+        `, [`%${phone}%`, fixDate])
+        res.status(200).json({
+            data: results[0]
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+
+// view assignment
+app.post('/get-assignment',async (req,res)=>{
+    try {
+        let {phone , status} = req.body;
+
+        phone = phone || "";
+
+        const results = await conn.query(`
+            SELECT u.User_id , r.Reserve_date , r.Start_time , r.End_time , t.Table_Number , u.First_name , u.Last_name , u.Phone_number , r.Customer_come , t.Table_Number
+            FROM User u
+            INNER JOIN Reservations r ON r.User_id = u.User_id
+            INNER JOIN \`Table Detail\` t ON t.Table_ID = r.Table_id
+            WHERE r.Status = ? AND u.Phone_number LIKE ? 
+            ORDER BY r.Reserve_date , r.Start_time , r.End_time ASC
+        `, [status , `%${phone}%`])
+        res.status(200).json({
+            data: results[0]
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
 
 // Get all User data
 app.get('/users',async (req,res)=>{
@@ -216,7 +273,6 @@ app.patch('/reservations/:id/status', async (req, res) => {
                 'UPDATE `Table Detail` SET Current_Status = ? WHERE Table_ID = ?',
                 ['ไม่ว่าง', tableId]
             );
- 
             // INSERT Table_Status
             await conn.query(
                 'INSERT INTO Table_Status (Table_id, Admin_id, Start_time, End_time, Status) VALUES (?, ?, NOW(), NOW(), ?)',

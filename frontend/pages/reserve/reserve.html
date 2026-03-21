@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,70 +21,76 @@
                 </div>
                 <div class="area-input">
                     <div class="area-input-container">
+
                         <div class="form-group">
-                            <label for="firstname">First Name</label>
-                            <input type="text" id = "firstname" name="firstname" placeholder="First name">
+                            <label for="">First Name</label>
+                            <input type="text" name="firstname" required placeholder="Please enter first name">
                         </div>
                         <div class="form-group">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" id ="lastname" name="lastname" placeholder="Last name">
+                            <label for="">Last Name</label>
+                            <input type="text" name="lastname" required placeholder="Please enter last name">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" id = "phone" name="phone" placeholder="0xx-xxx-xxxx">
+                            <label for="">Phone Number</label>
+                            <input type="tel" name="phone"  minlength="10" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required placeholder="Ex. 098xxxxxxx">
                         </div>
                         <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" id = "date" name="date">
+                            <label for="">Date</label>
+                            <input type="date" name="date" required>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="starttime">Start Time</label>
-                                <input type="time" id = "starttime" name="starttime"  required>
+                                <label for="">Start Time</label>
+                                <select name="starttime" id="starttime" required>
+                                    <option value="" disabled selected>Select Time</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="endtime">End Time</label>
-                                <input type="time" id = "endtime" name="endtime"  required>
+                                <label for="">End Time</label>
+                                <select name="endtime" id="endtime" required>
+                                    <option value="" disabled selected>Select Time</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nog">Number of Guests</label>
-                            <input type="number" id = "nog" name="nog">
+                            <label for="">Number of Guests</label>
+                            <input type="number" name="nog" max="15" min="1" value="1">
                         </div>
-
+                        
                         <div class="form-group">
-                            <button type="button"  onclick="SubmitData()">Reserve Table</button>
+                            <button type="submit">Reserve Table</button>
                         </div>
-
                     </div>
-
+                        
+                    
                 </div>
             </form>
-
-                <div id="modal-overlay" class="modal-overlay">
-                    <div class="modal-box">
-                        <div id="modal-gif" class="modal-gif">
-                            <img id="modal-img" src="" alt="">
-                        </div>
-                        <h3 id="modal-title"></h3>
-                        <div id="modal-errors" class="modal-errors"></div>
-                        <button id="modal-btn" onclick="closeModal()">ตกลง</button>
-                    </div>
-                </div>
         </div>
     </div>
 
+    <div id="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="/frontend/api/api.js"></script>
     <script>
         fetch('/frontend/components/navbar/navbar.html')
         .then(res => res.text())
         .then(data => {
             document.getElementById("navbar").innerHTML = data;
             initNavbar();
+            updateMenuVisibility();
+        });
+        fetch('/frontend/components/toast/toast.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("toast").innerHTML = data;
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+    <script src="/frontend/components/toast/toast.js"></script>
     <script src="/frontend/components/navbar/navbar.js"></script>
-    <script src="/frontend/pages/reserve/reserve.js"></script>
- 
+    <script src="/frontend/js/reserve.js"></script>
+    <script src="/frontend/js/auth.js"></script>
+    <script src="/frontend/js/logout.js"></script>
 </body>
 </html>

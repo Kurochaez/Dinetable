@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,25 +10,32 @@
     <div class="navbar">
         <div class="logo">DineTable</div>
         <div class="main-menu">
-            <a href="/frontend/index.html" class="menu-item">
-                Home
+            <a  href="/frontend/index.html" class="menu-item ">
+                Home 
                 <i class="fa-solid fa-house"></i>
             </a>
             <a href="/frontend/pages/reserve/reserve.html" class="menu-item">
-                Reserve
+                Reserve 
                 <i class="fa-solid fa-clipboard-list"></i>
             </a>
-            <!-- <a href="/frontend/pages/admin/assignment.html" class="menu-item">
+            <a id="assignmentMenu" href="/frontend/pages/admin/assignment.html" class="menu-item">
                 Assignment
                 <i class="fa-solid fa-clipboard-list"></i>
-            </a> -->
+            </a>
         </div>
         <div class="side-menu">
-            <a href="/frontend/pages/admin/login.html" class="menu-item">
+            <a id="loginMenu" href="/frontend/pages/admin/login.html" class="menu-item">
                 Admin
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </a>
+            <a id="logoutMenu" href="/frontend/pages/admin/login.html" class="menu-item">
+                Logout
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </a>
         </div>
     </div>
+
+    <script src="/frontend/js/auth.js"></script>
+    <script src="/frontend/js/logout.js"></script>
 </body>
 </html>
